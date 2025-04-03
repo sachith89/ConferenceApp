@@ -21,8 +21,7 @@ public class ConferenceAppApplication extends Application<ConferenceAppConfigura
     }
 
     @Override
-    public void run(final ConferenceAppConfiguration configuration,
-                    final Environment environment) {
+    public void run(final ConferenceAppConfiguration configuration, final Environment environment) {
         // TODO: implement application
     }
 
