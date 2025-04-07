@@ -3,6 +3,8 @@ package dev.sachith;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
 import io.dropwizard.core.setup.Environment;
+import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 public class ConferenceAppApplication extends Application<ConferenceAppConfiguration> {
 
@@ -21,8 +23,16 @@ public class ConferenceAppApplication extends Application<ConferenceAppConfigura
     }
 
     @Override
-    public void run(final ConferenceAppConfiguration configuration, final Environment environment) {
-        // TODO: implement application
+    public void run(final ConferenceAppConfiguration config, final Environment environment) {
+        final Jdbi jdbi = Jdbi.create(config.getDatabaseUrl(), config.getDatabaseUser(), config.getDatabasePassword());
+        jdbi.installPlugin(new SqlObjectPlugin());
+
+        final SessionDAO sessionDAO = jdbi.onDemand(SessionDAO.class);
+        final SessionService sessionService = new SessionService(sessionDAO);
+        final SessionResource sessionResource = new SessionResource(sessionService, config.getApiKey());
+
+        environment.jersey().register(sessionResource);
+        environment.jersey().register(new AuthenticationFilter(config.getApiKey()));
     }
 
 }
