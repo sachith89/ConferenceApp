@@ -2,6 +2,8 @@
 
 A demo app using DropWizard
 
+[![Java CI with Maven](https://github.com/sachith89/ConferenceApp/actions/workflows/maven.yml/badge.svg)](https://github.com/sachith89/ConferenceApp/actions/workflows/maven.yml)
+
 How to start the conference-app application
 ---
 
@@ -18,5 +20,15 @@ Build the Docker image
 ---
 
 ```bash
-   docker build -t conference-app .
+    docker build -t conference-app .
+```
+
+Setup kubernetes config maps
+---
+
+```bash
+    kubectl apply -f application-config.yml
+```
+```bash
+    kubectl apply -f application-deployment.yml
 ```
