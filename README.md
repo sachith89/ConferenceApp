@@ -23,7 +23,7 @@ Build the Docker image
     docker build -t conference-app .
 ```
 
-Setup kubernetes config maps
+Run kubernetes manifest files
 ---
 
 ```bash
